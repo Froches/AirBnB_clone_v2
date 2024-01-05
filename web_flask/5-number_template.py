@@ -1,42 +1,47 @@
 #!/usr/bin/python3
-"""Comment"""
-import requests
-import sys
+"""
+Starts a flask web application
+"""
+from flask import Flask
+import re
 
 
-def get_employee_todo_progress(employee_id):
-    base_url = f"""
-    https://jsonplaceholder.typicode.com/users/{employee_id}/todos
-    """
+app = Flask(__name__)
 
-    try:
-        response = requests.get(base_url)
-        response.raise_for_status()
-        todos = response.json()
 
-        # Fetch employee name
-        user_info = requests.get(f"""
-            https://jsonplaceholder.typicode.com/users/{employee_id}
-            """)
-        user_info.raise_for_status()
-        employee_name = user_info.json()['name']
+@app.route('/', strict_slashes=False)
+def index():
+    return 'Hello HBNB!'
 
-        # Count completed tasks and fetch task titles
-        completed_tasks = [todo['title'] for
-                           todo in todos if todo['completed']]
-        number_of_done_tasks = len(completed_tasks)
-        total_number_of_tasks = len(todos)
 
-        # Display progress
-        print(f"Employee {employee_name} is
-              done with tasks ({number_of_done_tasks}
-              {total_number_of_tasks}):")
-        print(f"{employee_name}:")
+@app.route('/hbnb', strict_slashes=False)
+def hbnb():
+    return 'HBNB'
 
-        # Display completed task titles
-        for task in completed_tasks:
-            print(f"\t{task}")
 
-    except requests.exceptions.RequestException as e:
-        print(f"Error: {e}")
-        sys.exit(1)
+@app.route('/c/<text>', strict_slashes=False)
+def c_text(text):
+    new_text = re.sub('_', ' ', text)
+    return f'C {new_text}'
+
+
+@app.route('/python/', strict_slashes=False)
+@app.route('/python/<text>', strict_slashes=False)
+def python(text='is cool'):
+    new_text = re.sub('_', ' ', text)
+    return f'Python {new_text}'
+
+
+@app.route('/number/<int:n>', strict_slashes=False)
+def number(n):
+    return f'{n} is a number'
+
+
+@app.route('/number_template/<int:n>', strict_slashes=False)
+def number_template(n):
+    return render_template_string('<html><body><h1>Number: {{ number }}
+                                  </h1></body></html>', number=n)
+
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=5000)
