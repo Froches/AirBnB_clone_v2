@@ -39,8 +39,7 @@ def number(n):
 
 @app.route('/number_template/<int:n>', strict_slashes=False)
 def number_template(n):
-    return render_template_string('<html><body><h1>Number: {{ number }}
-                                  </h1></body></html>', number=n)
+    return render_template_string(templates.5-number.html)
 
 
 if __name__ == '__main__':
