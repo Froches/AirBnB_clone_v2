@@ -1,4 +1,7 @@
 #!/usr/bin/python3
+"""
+Creates new archive
+"""
 from fabric.api import local
 from datetime import datetime
 import os
