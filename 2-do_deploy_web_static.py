@@ -1,4 +1,7 @@
 #!/usr/bin/python3
+"""
+Deploy web static
+"""
 from fabric import task
 from fabric import Connection
 from os.path import exists
