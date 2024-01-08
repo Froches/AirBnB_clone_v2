@@ -1,4 +1,7 @@
 #!/usr/bin/python3
+"""
+Deploys to web servers
+"""
 from fabric.api import local
 from fabric import Connection
 from os.path import exists
@@ -49,7 +52,6 @@ def do_deploy(archive_path):
             print("Failed to upload the archive.")
             return False
 
-        # Extract the archive to /data/web_static/releases/<archive filename without extension>
         archive_filename = os.path.basename(archive_path)
         folder_name = archive_filename.replace('.tgz', '').split('_')[1]
         releases_path = f'/data/web_static/releases/{folder_name}'
@@ -71,4 +73,3 @@ def do_deploy(archive_path):
 
     print("Deployment successful.")
     return True
-
