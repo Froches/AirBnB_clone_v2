@@ -1,11 +1,14 @@
+#!/usr/bin/python3
 from fabric.api import local
 from fabric import Connection
 from os.path import exists
 import os
 
+
 env.hosts = ['330540-web-01', '330540-web-02']
 env.user = 'ubuntu'
 env.key_filename = '~/.ssh/id_rsa'
+
 
 def do_pack():
     """
