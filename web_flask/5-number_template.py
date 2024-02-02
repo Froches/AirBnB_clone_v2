@@ -2,15 +2,14 @@
 """
 Starts a flask web application
 """
-from flask import Flask
-import re
+from flask import Flask, render_template
 
 
 app = Flask(__name__)
 
 
 @app.route('/', strict_slashes=False)
-def index():
+def hello_hbnb():
     return 'Hello HBNB!'
 
 
@@ -21,15 +20,13 @@ def hbnb():
 
 @app.route('/c/<text>', strict_slashes=False)
 def c_text(text):
-    new_text = re.sub('_', ' ', text)
-    return f'C {new_text}'
+    return 'C {}'.format(text.replace('_',' '))
 
 
-@app.route('/python/', strict_slashes=False)
+@app.route('/python/', defaults={'text': 'is cool'}, strict_slashes=False)
 @app.route('/python/<text>', strict_slashes=False)
-def python(text='is cool'):
-    new_text = re.sub('_', ' ', text)
-    return f'Python {new_text}'
+def python(text):
+    return 'Python {}'.format(text.replace('_',' '))
 
 
 @app.route('/number/<int:n>', strict_slashes=False)
@@ -39,7 +36,7 @@ def number(n):
 
 @app.route('/number_template/<int:n>', strict_slashes=False)
 def number_template(n):
-    return render_template('5-number.html', n=n)
+    return render_template('5-number.html', number=n)
 
 
 if __name__ == '__main__':
