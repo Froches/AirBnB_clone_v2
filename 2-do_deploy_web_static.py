@@ -15,7 +15,7 @@ env.key_filename = '~/.ssh/id_rsa'
 
 def do_pack():
     """
-    Creates a new archive from contents of the web_static folder
+    Creates a new archives from contents of the web_static folder
     """
 
     now = datetime.utcnow()
